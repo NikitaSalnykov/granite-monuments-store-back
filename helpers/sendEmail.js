@@ -1,4 +1,3 @@
-const { trusted } = require("mongoose");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
