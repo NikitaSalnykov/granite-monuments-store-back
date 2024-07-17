@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
-const { handleMangooseErr } = require("../helpers");
+const { handleMongooseErr } = require("../helpers");
 
 const emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -64,7 +64,7 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.post("save", handleMangooseErr);
+userSchema.post("save", handleMongooseErr);
 
 const registerSchema = Joi.object({
   email: Joi.string().pattern(emailValidation).required(),

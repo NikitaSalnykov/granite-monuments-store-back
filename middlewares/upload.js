@@ -11,7 +11,7 @@ const multerConfig = multer.diskStorage({
     const article = req.body.article;
     const ext = path.extname(file.originalname);
     const timestamp = Date.now(); // Добавляем timestamp для уникальности имени файла
-    const newFileName = `${name}_${article}_${timestamp}${ext}`;
+    const newFileName = `${article}_${timestamp}${ext}`;
     cb(null, newFileName);
   },
 });

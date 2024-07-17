@@ -1,11 +1,11 @@
 const HttpError = require("./HttpError")
-const handleMangooseErr = require("./handleMangooseErr")
+const handleMongooseErr = require("./handleMongooseErr")
 const sendEmail = require('./sendEmail')
 const authenticate = require('../middlewares/authenticate')
 
 module.exports = {
   HttpError,
-  handleMangooseErr,
+  handleMongooseErr,
   sendEmail,
   authenticate
 }
