@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const ctrl = require("../../controllers/reviews");
-const {
-  validateBody,
-} = require("../../middlewares");
+const { validateBody } = require("../../middlewares");
 const { schemas } = require("../../models/review");
 const getImage = require("../../middlewares/getImage");
 const isValidReviewId = require("../../middlewares/isValidReviewId");

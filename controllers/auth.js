@@ -212,7 +212,7 @@ const passwordForgot = async (req, res) => {
     throw HttpError(400, "Missing required field email");
   }
 
-  const resetToken  = nanoid();
+  const resetToken = nanoid();
 
   await User.findByIdAndUpdate(user._id, { resetToken });
 
@@ -228,8 +228,7 @@ const passwordForgot = async (req, res) => {
 
   await sendEmail(resetEmail);
 
-  res.status(200).json({ message: "Reset password email sent",
-  user });
+  res.status(200).json({ message: "Reset password email sent", user });
 };
 
 const passwordReset = async (req, res) => {
@@ -241,8 +240,7 @@ const passwordReset = async (req, res) => {
     if (!user) {
       throw HttpError(400, "Invalid reset token");
     }
-    
-    
+
     const hashPassword = await bcrypt.hash(newPassword, 10);
 
     const updatedUser = await User.findByIdAndUpdate(
@@ -251,7 +249,9 @@ const passwordReset = async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json({ message: "Password reset successful", user: updatedUser });
+    res
+      .status(200)
+      .json({ message: "Password reset successful", user: updatedUser });
   } catch (error) {
     console.error(error);
     res.status(error.status || 500).json({ error: error.message });
@@ -260,11 +260,9 @@ const passwordReset = async (req, res) => {
 
 const getAll = async (req, res) => {
   let result;
-  result = await User.find({}, 'email name surname phone createdAt');
+  result = await User.find({}, "email name surname phone createdAt");
   res.json(result);
 };
-
-
 
 module.exports = {
   register: ctrlWrapper(register),
@@ -278,5 +276,5 @@ module.exports = {
   update: ctrlWrapper(update),
   passwordForgot: ctrlWrapper(passwordForgot),
   passwordReset: ctrlWrapper(passwordReset),
-  getAll: ctrlWrapper(getAll)
+  getAll: ctrlWrapper(getAll),
 };

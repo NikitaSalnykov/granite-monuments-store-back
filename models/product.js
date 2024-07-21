@@ -84,7 +84,17 @@ const updateSchema = Joi.object({
   article: Joi.string(),
   mainPhoto: Joi.string(),
   extraPhotos: Joi.array().items(Joi.string()),
-}).or('name', 'category', 'type', 'price', 'discount', 'description', 'article', 'mainPhoto', 'extraPhotos');
+}).or(
+  "name",
+  "category",
+  "type",
+  "price",
+  "discount",
+  "description",
+  "article",
+  "mainPhoto",
+  "extraPhotos"
+);
 
 const schemas = {
   addSchema,
