@@ -17,6 +17,7 @@ const getById = async (req, res, next) => {
 
 const addReview = async (req, res, next) => {
   const result = await Review.create({ ...req.body });
+
   res.json({ message: "Add success" });
 };
 
@@ -26,7 +27,6 @@ const deleteReview = async (req, res, next) => {
   if (!result) throw HttpError(404, "Not found");
   res.json({ message: "Delete success" });
 };
-
 
 module.exports = {
   getAll: ctrlWrapper(getAll),
