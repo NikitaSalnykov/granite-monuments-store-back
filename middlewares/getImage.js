@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const getImage = async (req, res, next) => {
-  const uploadDir = path.join(__dirname, "../uploads");
+  const uploadDir = "./uploads";
 
   // Создаем папку для загрузок, если ее не существует
   if (!fs.existsSync(uploadDir)) {
@@ -19,7 +19,7 @@ const getImage = async (req, res, next) => {
     const mainTmpDir = path.join(uploadDir, mainPhotoFile.filename);
 
     fs.renameSync(mainPhotoFile.path, mainTmpDir);
-    req.body.mainPhoto = mainTmpDir;
+    req.body.mainPhoto = `/${mainTmpDir}`;
   }
 
   // Проверяем наличие extraPhotos в запросе
@@ -35,12 +35,12 @@ const getImage = async (req, res, next) => {
       const extraTmpDir = path.join(uploadDir, extraPhotoFile.filename);
 
       fs.renameSync(extraPhotoFile.path, extraTmpDir);
-      extraPhotos.push(extraTmpDir);
+      extraPhotos.push(`/${extraTmpDir}`);
     }
 
     req.body.extraPhotos = extraPhotos;
   }
-
+  
   next();
 };
 

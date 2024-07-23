@@ -32,4 +32,11 @@ router.patch(
   ctrl.updateProduct
 );
 
+router.patch(
+  "/:productId/availability",
+  isValidId,
+  validateBody(schemas.updateAvailabilitySchema),
+  ctrl.updateAvailability
+);
+
 module.exports = router;

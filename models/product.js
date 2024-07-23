@@ -33,6 +33,10 @@ const productSchema = new Schema(
     article: {
       type: String,
     },
+    availability: {
+      type: Boolean,
+      default: true,
+    },
     mainPhoto: {
       type: String,
     },
@@ -96,9 +100,14 @@ const updateSchema = Joi.object({
   "extraPhotos"
 );
 
+const updateAvailabilitySchema = Joi.object({
+  availability: Joi.boolean().required(),
+});
+
 const schemas = {
   addSchema,
   updateSchema,
+  updateAvailabilitySchema
 };
 
 const Product = model("Product", productSchema);

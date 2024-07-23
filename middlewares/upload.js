@@ -6,7 +6,6 @@ const tmpDir = path.join(__dirname, "../", "tmp");
 const multerConfig = multer.diskStorage({
   destination: tmpDir,
   filename: (req, file, cb) => {
-    // Используем поля из req.body для создания нового имени файла
     const name = req.body.name;
     const article = req.body.article;
     const ext = path.extname(file.originalname);

@@ -44,6 +44,15 @@ const updateProduct = async (req, res, next) => {
   res.json(result);
 };
 
+const updateAvailability = async (req, res, next) => {
+  const { productId } = req.params;
+  const result = await Product.findByIdAndUpdate(productId, req.body, {
+    new: true,
+  });
+  if (!result) throw HttpError(404, "Not found");
+  res.json(result);
+};
+
 
 module.exports = {
   getAll: ctrlWrapper(getAll),
@@ -51,4 +60,5 @@ module.exports = {
   addProduct: ctrlWrapper(addProduct),
   deleteProduct: ctrlWrapper(deleteProduct),
   updateProduct: ctrlWrapper(updateProduct),
+  updateAvailability: ctrlWrapper(updateAvailability)
 };
