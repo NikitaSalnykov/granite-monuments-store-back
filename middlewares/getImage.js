@@ -16,10 +16,21 @@ const getImage = async (req, res, next) => {
     req.files["mainPhoto"].length > 0
   ) {
     const mainPhotoFile = req.files["mainPhoto"][0];
-    const mainTmpDir = path.join(uploadDir, mainPhotoFile.filename);
 
-    fs.renameSync(mainPhotoFile.path, mainTmpDir);
-    req.body.mainPhoto = `/${mainTmpDir}`;
+    //LOCAL:
+    // const mainTmpDir = path.join(uploadDir, mainPhotoFile.filename);
+
+    // fs.renameSync(mainPhotoFile.path, mainTmpDir);
+    // req.body.mainPhoto = `/${mainTmpDir}`;
+
+    //CLOUDINARY
+    const { path: mainTmpDir } = mainPhotoFile;
+    const { secure_url, public_id } = await fileController.upload(
+      mainTmpDir,
+      "images"
+    );
+    req.body.mainPhoto = secure_url;
+    req.body.imageId = public_id;
   }
 
   // Проверяем наличие extraPhotos в запросе
@@ -32,15 +43,25 @@ const getImage = async (req, res, next) => {
 
     // Проходим по всем файлам extraPhotos и асинхронно обрабатываем каждый
     for (const extraPhotoFile of req.files["extraPhotos"]) {
-      const extraTmpDir = path.join(uploadDir, extraPhotoFile.filename);
+      //LOCAL
+      // const extraTmpDir = path.join(uploadDir, extraPhotoFile.filename);
 
-      fs.renameSync(extraPhotoFile.path, extraTmpDir);
-      extraPhotos.push(`/${extraTmpDir}`);
+      // fs.renameSync(extraPhotoFile.path, extraTmpDir);
+      // extraPhotos.push(`/${extraTmpDir}`);
+
+      //CLODINARY
+      const { path: mainTmpDir } = mainPhotoFile;
+      const { secure_url, public_id } = await fileController.upload(
+        mainTmpDir,
+        "images"
+      );
+      req.body.mainPhoto = secure_url;
+      req.body.imageId = public_id;
     }
 
     req.body.extraPhotos = extraPhotos;
   }
-  
+
   next();
 };
 
