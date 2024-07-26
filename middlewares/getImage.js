@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const fileController = require("../helpers/FileController");
 
 const getImage = async (req, res, next) => {
   const uploadDir = "./uploads";
