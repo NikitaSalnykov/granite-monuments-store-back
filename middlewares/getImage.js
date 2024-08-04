@@ -53,7 +53,7 @@ const getImage = async (req, res, next) => {
       //CLODINARY
       const { path: extraTmpDir } = extraPhotoFile;
       const { secure_url, public_id } = await fileController.upload(
-        mainTmpDir,
+        extraTmpDir,
         "images"
       );
       req.body.mainPhoto = secure_url;
