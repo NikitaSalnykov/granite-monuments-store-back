@@ -51,7 +51,7 @@ const getImage = async (req, res, next) => {
       // extraPhotos.push(`/${extraTmpDir}`);
 
       //CLODINARY
-      const { path: mainTmpDir } = mainPhotoFile;
+      const { path: extraTmpDir } = extraPhotoFile;
       const { secure_url, public_id } = await fileController.upload(
         mainTmpDir,
         "images"
