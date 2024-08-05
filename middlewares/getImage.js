@@ -56,11 +56,11 @@ const getImage = async (req, res, next) => {
         extraTmpDir,
         "images"
       );
-      req.body.mainPhoto = secure_url;
-      req.body.imageId = public_id;
+      extraPhotos.push(secure_url);
     }
 
     req.body.extraPhotos = extraPhotos;
+    req.body.extraImageId = public_id;
   }
 
   next();
