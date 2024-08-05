@@ -60,7 +60,6 @@ const getImage = async (req, res, next) => {
     }
 
     req.body.extraPhotos = extraPhotos;
-    req.body.extraImageId = public_id;
   }
 
   next();
