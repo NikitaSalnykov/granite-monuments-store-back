@@ -5,6 +5,7 @@ const upload = require("./upload");
 const isValidId = require("./isValidId");
 const processFields = require("./processFields");
 const isValidReviewId = require("./isValidReviewId");
+const processFieldsGallery = require("./processFieldsGallery");
 
 module.exports = {
   authenticate,
@@ -12,5 +13,6 @@ module.exports = {
   upload,
   isValidId,
   processFields,
-  isValidReviewId
+  isValidReviewId,
+  processFieldsGallery
 };
