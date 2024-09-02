@@ -28,7 +28,7 @@ const gallerySchema = new Schema(
 gallerySchema.post("save", handleMongooseErr);
 
 const addSchema = Joi.object({
-  text: Joi.string().min(40).max(450),
+  text: Joi.string().max(450),
   title: Joi.string().min(6).max(45).required("add text"),
   mainPhoto: Joi.string(),
 });
