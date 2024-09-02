@@ -12,7 +12,6 @@ const gallerySchema = new Schema(
     },
     text: {
       type: String,
-      minlength: 40,
       maxlength: 450,
     },
     mainPhoto: {
