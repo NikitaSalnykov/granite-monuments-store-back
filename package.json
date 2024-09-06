@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "start": "cross-env NODE_ENV=production node ./server.js",
-    "start:dev": "cross-env NODE_ENV=development nodemon --watch ./ ./server.js",
+    "start": "node --env-file=.env ./server.js",
+    "start:dev": " nodemon --env-file=.env.local --watch  ./ ./server.js",
     "lint": "eslint **/*.js",
     "lint:fix": "eslint --fix **/*.js"
   },

@@ -1,6 +1,10 @@
 const fs = require("fs");
 const path = require("path");
-const fileController = require("../helpers/FileController");
+// const fileController = require("../helpers/FileController");
+require("dotenv").config();
+
+console.log('sdasdasd');
+
 
 const getImage = async (req, res, next) => {
   const uploadDir = "./uploads";
@@ -19,19 +23,19 @@ const getImage = async (req, res, next) => {
     const mainPhotoFile = req.files["mainPhoto"][0];
 
     //LOCAL:
-    // const mainTmpDir = path.join(uploadDir, mainPhotoFile.filename);
+    const mainTmpDir = path.join(uploadDir, mainPhotoFile.filename);
 
-    // fs.renameSync(mainPhotoFile.path, mainTmpDir);
-    // req.body.mainPhoto = `/${mainTmpDir}`;
+    fs.renameSync(mainPhotoFile.path, mainTmpDir);
+    req.body.mainPhoto = `/${mainTmpDir}`;
 
     //CLOUDINARY
-    const { path: mainTmpDir } = mainPhotoFile;
-    const { secure_url, public_id } = await fileController.upload(
-      mainTmpDir,
-      "images"
-    );
-    req.body.mainPhoto = secure_url;
-    req.body.imageId = public_id;
+    // const { path: mainTmpDir } = mainPhotoFile;
+    // const { secure_url, public_id } = await fileController.upload(
+    //   mainTmpDir,
+    //   "images"
+    // );
+    // req.body.mainPhoto = secure_url;
+    // req.body.imageId = public_id;
   }
 
   // Проверяем наличие extraPhotos в запросе
@@ -45,18 +49,18 @@ const getImage = async (req, res, next) => {
     // Проходим по всем файлам extraPhotos и асинхронно обрабатываем каждый
     for (const extraPhotoFile of req.files["extraPhotos"]) {
       //LOCAL
-      // const extraTmpDir = path.join(uploadDir, extraPhotoFile.filename);
+      const extraTmpDir = path.join(uploadDir, extraPhotoFile.filename);
 
-      // fs.renameSync(extraPhotoFile.path, extraTmpDir);
-      // extraPhotos.push(`/${extraTmpDir}`);
+      fs.renameSync(extraPhotoFile.path, extraTmpDir);
+      extraPhotos.push(`/${extraTmpDir}`);
 
       //CLODINARY
-      const { path: extraTmpDir } = extraPhotoFile;
-      const { secure_url, public_id } = await fileController.upload(
-        extraTmpDir,
-        "images"
-      );
-      extraPhotos.push(secure_url);
+      // const { path: extraTmpDir } = extraPhotoFile;
+      // const { secure_url, public_id } = await fileController.upload(
+      //   extraTmpDir,
+      //   "images"
+      // );
+      // extraPhotos.push(secure_url);
     }
 
     req.body.extraPhotos = extraPhotos;
