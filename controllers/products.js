@@ -19,9 +19,13 @@ const getById = async (req, res, next) => {
 };
 
 const addProduct = async (req, res, next) => {
-  const result = await Product.create({ ...req.body });
-
-  res.json({ message: "Add success" });
+  try {
+    const result = await Product.create({ ...req.body });
+    console.log(result);
+    return res.status(201).json({ message: "Add success" });
+  } catch (err) {
+    return res.status(500).json(err)
+  }
 };
 
 const deleteProduct = async (req, res, next) => {

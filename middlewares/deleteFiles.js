@@ -1,4 +1,4 @@
-const fs = require("fs").promises;
+const fs = require("fs");
 const path = require("path");
 const { Product } = require("../models/product");
 const { HttpError } = require("../helpers");
@@ -11,19 +11,23 @@ const deleteFiles = async (req, res, next) => {
   if (!product) throw HttpError(404, "Not found");
 
   if (product.mainPhoto) {
-    const mainPhotoPath = path.join(uploadDir, path.basename(product.mainPhoto));
+    const filePath = path.join(uploadDir, path.basename(product.mainPhoto));
     try {
-      await fs.unlink(mainPhotoPath);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+    }
     } catch (error) {
-      console.error(`Failed to delete file at ${mainPhotoPath}:`, error.message);
+      console.error(`Failed to delete file at ${filePath}:`, error.message);
     }
   }
 
   if (product.extraPhotos && product.extraPhotos.length > 0) {
     for (const photo of product.extraPhotos) {
-      const photoPath = path.join(uploadDir, path.basename(photo));
+      const filePath = path.join(uploadDir, path.basename(photo));
       try {
-        await fs.unlink(photoPath);
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+      }
       } catch (error) {
         console.error(`Failed to delete file at ${photoPath}:`, error.message);
       }

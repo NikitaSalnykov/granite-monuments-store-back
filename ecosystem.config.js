@@ -3,7 +3,7 @@ module.exports = {
       {
         name: "myapp",
         script: "./server.js",
-        watch: true,
+        watch: false,
         env: {
           DB_HOST: "mongodb://127.0.0.1:27017/memorial-service",
 META_PASSWORD:"Kolokol010",

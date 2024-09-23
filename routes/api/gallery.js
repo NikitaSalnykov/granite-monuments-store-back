@@ -6,10 +6,11 @@ const { schemas } = require("../../models/gallery");
 const getImage = require("../../middlewares/getImage");
 const isValidGalleryId = require("../../middlewares/isValidGalleryId");
 const processFieldsGallery = require("../../middlewares/processFieldsGallery");
+const deletePhoto = require("../../middlewares/deletePhoto");
 
 router.get("/", ctrl.getAll);
 router.get("/:galleryId", isValidGalleryId, ctrl.getById);
 router.post("/",   processFieldsGallery, validateBody(schemas.addSchema),   getImage, ctrl.addGallery);
-router.delete("/:galleryId", isValidGalleryId, ctrl.deleteGallery);
+router.delete("/:galleryId", isValidGalleryId, deletePhoto, ctrl.deleteGallery);
 
 module.exports = router;

@@ -3,7 +3,6 @@ const path = require("path");
 // const fileController = require("../helpers/FileController");
 require("dotenv").config();
 
-console.log('sdasdasd');
 
 
 const getImage = async (req, res, next) => {
