@@ -40,11 +40,15 @@ const productSchema = new Schema(
     mainPhoto: {
       type: String,
     },
-    extraPhotos: [
-      {
-        type: String,
+    extraPhotos: {
+      type: [String], 
+      validate: {
+        validator: function (v) {
+          return Array.isArray(v) || typeof v === 'string';
+        },
+        message: "extraPhotos should be either a string or an array of strings",
       },
-    ],
+    },
   },
   {
     versionKey: false,
@@ -69,7 +73,10 @@ const addSchema = Joi.object({
   }).required(),
   article: Joi.string(),
   mainPhoto: Joi.string(),
-  extraPhotos: Joi.array().items(Joi.string()),
+  extraPhotos: Joi.alternatives().try(
+    Joi.array().items(Joi.string()), // Массив строк
+    Joi.string() // Одна строка
+  ),
 });
 
 const updateSchema = Joi.object({
@@ -87,7 +94,10 @@ const updateSchema = Joi.object({
   }),
   article: Joi.string(),
   mainPhoto: Joi.string(),
-  extraPhotos: Joi.array().items(Joi.string()),
+  extraPhotos: Joi.alternatives().try(
+    Joi.array().items(Joi.string()), // Массив строк
+    Joi.string() // Одна строка
+  ),
 }).or(
   "name",
   "category",
@@ -107,7 +117,7 @@ const updateAvailabilitySchema = Joi.object({
 const schemas = {
   addSchema,
   updateSchema,
-  updateAvailabilitySchema
+  updateAvailabilitySchema,
 };
 
 const Product = model("Product", productSchema);
